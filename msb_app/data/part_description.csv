@@ -1,0 +1,74 @@
+id,description,isFluid,isService,isCollected,isMsb
+X,Especial,true,true,true,true
+S/S,Semi-Sintético,true,true,true,true
+SLT,Líquido de Travões,true,false,true,true
+S,Sintético,true,true,true,true
+Mi,Mineral,true,true,true,true
+M,Liquido ADBlue,true,false,true,false
+LTA,Óleo da Caixa de Velocidades - Automática,true,false,true,false
+LA,Liquido Anti Congelante,true,false,true,true
+CS,Óleo da Caixa de Velocidades - Manual,true,false,true,false
+10607,Amortecedor Traseiro 2,false,false,true,true
+10606,Amortecedor Dianteiro 2,false,false,true,true
+10605,Escovas Limpa Para Brisas Dianteiras 2,false,false,true,true
+10604,Correia Distribuição 2,false,true,true,true
+10566,Rolamento Encosto,false,false,true,true
+10561,Prato Embraiagem,false,false,true,true
+10525,Cabeçote Amortecedor,false,false,true,false
+10512,Depósito ADBlue,false,false,true,false
+10511,Injetor ADBlue,false,false,true,false
+10504,Correia de Acessórios,false,false,true,true
+10503,Velas de incandescência,false,false,true,false
+10495,Escovas Limpa Para Brisas Tras,false,false,true,true
+10491,Filtro Particulas (FAP),false,false,true,false
+10490,Volante Motor,false,false,true,false
+10476,Velas de ignição,false,true,true,true
+10473,Veio Transmissão,false,false,true,false
+10454,Valvula EGR,false,false,true,false
+10445,Turbo,false,false,true,false
+10423,Termostato,false,false,true,false
+10409,Tambor,false,false,true,true
+10316,Pilha Chave,false,false,true,true
+10309,Pastilhas Traseiras,false,false,true,true
+10308,Pastilhas Dianteiras,false,false,true,true
+10289,Elevador Vidro,false,false,true,false
+10288,Motor Vidros Electricos,false,false,true,false
+10285,Motor Arranque,false,false,true,false
+10284,Motor Novo,false,false,true,false
+10275,Maxila,false,false,true,true
+10266,Escovas Limpa Para Brisas Dianteiras,false,false,true,true
+10260,Lampada chapa Matricula,false,false,true,false
+10259,Lampada STOP,false,false,true,false
+10258,Lampada Instrumentos,false,false,true,false
+10257,Lampada Indicadora,false,false,true,false
+10256,Lampada Farol,false,false,true,false
+10221,Injector,false,false,true,false
+10218,Gestão Electronica Motor,false,false,true,false
+10205,Filtro Oleo,false,true,true,true
+10204,Filtro Habitaculo,false,true,true,true
+10202,Filtro Combustivel,false,true,true,true
+10201,Filtro Ar,false,true,true,true
+10198,Farolim,false,false,true,false
+10188,Silenciador Escape,false,false,true,true
+10185,Embraiagem (kit),false,false,true,true
+10176,Discos Traseiros,false,false,true,true
+10174,Discos Dianteiros,false,false,true,true
+10173,Disco Embraiagem,false,false,true,true
+10157,Correia Distribuição,false,true,true,true
+10061,Bomba Principal,false,false,true,false
+10055,Bomba Injecção,false,false,true,false
+10054,Bomba de Água,false,false,true,false
+10044,Bateria,false,false,true,true
+10029,Apoio Motor,false,false,true,false
+10024,Anilha ,false,true,true,true
+10020,Amortecedor Traseiro,false,false,true,true
+10016,Amortecedor Dianteiro,false,false,true,true
+10014,Alternador,false,false,true,false
+10164,Sensor Desgaste,false,false,true,true
+10252,Kit Corrente,false,false,true,true
+LS,SIGOU - EcoValor,true,true,true,true
+10154,Tensor Correia Distribuição,false,false,true,true
+10324,Polie Distribuição,false,false,true,true
+
+
+

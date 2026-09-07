@@ -1,0 +1,200 @@
+msbId,partDescription,partId,partNumber_task,labourTime,quantity_task,price_task,priceDate_task,country_task,description_x,partNumber_service,price_service,priceDate_service,quantity_service,country_service,description_collected,check_collected,check_price,check_partnumber,check_qtd
+4345,Alternador,10014,04E903015Q,0.9,1.0,732.52,2026-09-05,PO,,,,,,,Alternador,True,False,False,False
+4345,Amortecedor Dianteiro,10016,5QF413031AQ,2.7,2.0,193.09,2026-09-05,PO,,,,,,,Amortecedor Dianteiro,True,False,False,False
+4345,Amortecedor Traseiro,10020,5QN513049AM,2.3,2.0,168.7,2026-09-05,PO,,,,,,,Amortecedor Traseiro,True,False,False,False
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Anilha ,10024,N0138157,0.7,1.0,2.8,2026-09-05,PO,Anilha ,N0138157,2.8,2026-09-05 00:00:00.0,1.0,PO,Anilha ,True,True,True,True
+4345,Apoio Motor,10029,3Q0199262N,1.0,1.0,215.85,2026-09-05,PO,,,,,,,Apoio Motor,True,False,False,False
+4345,Bateria,10044,000915089F,0.5,1.0,271.54,2026-09-05,PO,,,,,,,Bateria,True,False,False,False
+4345,Bomba de Água,10054,05E121111AB,2.6,1.0,262.6,2026-09-05,PO,,,,,,,Bomba de Água,True,False,False,False
+4345,Bomba Injecção,10055,05E127027J,0.8,1.0,582.93,2026-09-05,PO,,,,,,,Bomba Injecção,True,False,False,False
+,,10061,,,,,,,,,,,,,Bomba Principal,False,False,False,False
+4345,Tensor Correia Distribuição,10154,05E109479B,4.4,1.0,41.83,2026-09-05,PO,,,,,,,Tensor Correia Distribuição,True,False,False,False
+4345,Correia Distribuição,10157,04E109119F,4.4,1.0,57.97,2026-09-05,PO,,,,,,,Correia Distribuição,True,False,False,False
+,,10164,,,,,,,,,,,,,Sensor Desgaste,False,False,False,False
+,,10173,,,,,,,,,,,,,Disco Embraiagem,False,False,False,False
+4345,Discos Dianteiros,10174,5QN615301,1.7,2.0,128.05,2026-09-05,PO,,,,,,,Discos Dianteiros,True,False,False,False
+4345,Discos Traseiros,10176,3Q0615601A,2.4,2.0,84.96,2026-09-05,PO,,,,,,,Discos Traseiros,True,False,False,False
+4345,Embraiagem (kit),10185,0BH398029B,7.1,1.0,723.58,2026-09-05,PO,,,,,,,Embraiagem (kit),True,False,False,False
+4345,Silenciador Escape,10188,5NN253609,0.5,1.0,685.37,2026-09-05,PO,,,,,,,Silenciador Escape,True,False,False,False
+4345,Farolim,10198,5NL945095A,0.2,1.0,260.98,2026-09-05,PO,,,,,,,Farolim,True,False,False,False
+4345,Filtro Ar,10201,5Q0129620G,0.2,1.0,22.4,2026-09-05,PO,Filtro Ar,5Q0129620G,22.4,2026-09-05 00:00:00.0,1.0,PO,Filtro Ar,True,True,True,True
+4345,Filtro Ar,10201,5Q0129620G,0.2,1.0,22.4,2026-09-05,PO,Filtro Ar,5Q0129620G,22.4,2026-09-05 00:00:00.0,1.0,PO,Filtro Ar,True,True,True,True
+4345,Filtro Ar,10201,5Q0129620G,0.2,1.0,22.4,2026-09-05,PO,Filtro Ar,5Q0129620G,22.4,2026-09-05 00:00:00.0,1.0,PO,Filtro Ar,True,True,True,True
+4345,Filtro Ar,10201,5Q0129620G,0.2,1.0,22.4,2026-09-05,PO,Filtro Ar,5Q0129620G,22.4,2026-09-05 00:00:00.0,1.0,PO,Filtro Ar,True,True,True,True
+4345,Filtro Ar,10201,5Q0129620G,0.2,1.0,22.4,2026-09-05,PO,Filtro Ar,5Q0129620G,22.4,2026-09-05 00:00:00.0,1.0,PO,Filtro Ar,True,True,True,True
+4345,Filtro Ar,10201,5Q0129620G,0.2,1.0,22.4,2026-09-05,PO,Filtro Ar,5Q0129620G,22.4,2026-09-05 00:00:00.0,1.0,PO,Filtro Ar,True,True,True,True
+,,10202,,,,,,,,,,,,,Filtro Combustivel,False,False,False,False
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Habitaculo,10204,5Q0819669,0.2,1.0,27.2,2026-09-05,PO,Filtro Habitaculo,5Q0819669,27.2,2026-09-05 00:00:00.0,1.0,PO,Filtro Habitaculo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Filtro Oleo,10205,04E115561AC,0.7,1.0,11.83,2026-09-05,PO,Filtro Oleo,04E115561AC,11.83,2026-09-05 00:00:00.0,1.0,PO,Filtro Oleo,True,True,True,True
+4345,Gestão Electronica Motor,10218,04E906027BM,0.5,1.0,1378.05,2026-09-05,PO,,,,,,,Gestão Electronica Motor,True,False,False,False
+4345,Injector,10221,04E906036AD,2.9,1.0,241.87,2026-09-05,PO,,,,,,,Injector,True,False,False,False
+,,10252,,,,,,,,,,,,,Kit Corrente,False,False,False,False
+4345,Lampada Farol,10256,N10724401,0.3,1.0,11.26,2026-09-05,PO,,,,,,,Lampada Farol,True,False,False,False
+4345,Lampada Indicadora,10257,N10724401,0.3,1.0,11.26,2026-09-05,PO,,,,,,,Lampada Indicadora,True,False,False,False
+,,10258,,,,,,,,,,,,,Lampada Instrumentos,False,False,False,False
+,,10259,,,,,,,,,,,,,Lampada STOP,False,False,False,False
+,,10260,,,,,,,,,,,,,Lampada chapa Matricula,False,False,False,False
+4345,Escovas Limpa Para Brisas Dianteiras,10266,5NN95542503C,0.2,1.0,32.02,2026-09-05,PO,,,,,,,Escovas Limpa Para Brisas Dianteiras,True,False,False,False
+,,10275,,,,,,,,,,,,,Maxila,False,False,False,False
+4345,Motor Novo,10284,05E100032D,12.6,1.0,9817.07,2026-09-05,PO,,,,,,,Motor Novo,True,False,False,False
+4345,Motor Novo,10284,05E100032D,12.6,1.0,9817.07,2026-09-05,PO,,,,,,,Motor Novo,True,False,False,False
+4345,Motor Arranque,10285,02E911022H,0.7,1.0,473.98,2026-09-05,PO,,,,,,,Motor Arranque,True,False,False,False
+4345,Motor Vidros Electricos,10288,80A959802,0.5,1.0,212.6,2026-09-05,PO,,,,,,,Motor Vidros Electricos,True,False,False,False
+,,10289,,,,,,,,,,,,,Elevador Vidro,False,False,False,False
+4345,Pastilhas Dianteiras,10308,5Q0698151AJ,0.8,1.0,153.25,2026-09-05,PO,,,,,,,Pastilhas Dianteiras,True,False,False,False
+4345,Pastilhas Dianteiras,10308,5Q0698151AJ,1.7,1.0,153.25,2026-09-05,PO,,,,,,,Pastilhas Dianteiras,True,False,False,False
+4345,Pastilhas Traseiras,10309,3Q0698451S,2.4,1.0,68.7,2026-09-05,PO,,,,,,,Pastilhas Traseiras,True,False,False,False
+4345,Pastilhas Traseiras,10309,3Q0698451S,1.1,1.0,68.7,2026-09-05,PO,,,,,,,Pastilhas Traseiras,True,False,False,False
+4345,Pilha Chave,10316,N10528301,0.1,1.0,5.33,2026-09-05,PO,,,,,,,Pilha Chave,True,False,False,False
+4345,Polie Distribuição,10324,05C109244A,4.4,1.0,34.67,2026-09-05,PO,,,,,,,Polie Distribuição,True,False,False,False
+,,10409,,,,,,,,,,,,,Tambor,False,False,False,False
+,,10423,,,,,,,,,,,,,Termostato,False,False,False,False
+4345,Turbo,10445,05E145702L,2.5,1.0,1638.21,2026-09-05,PO,,,,,,,Turbo,True,False,False,False
+,,10454,,,,,,,,,,,,,Valvula EGR,False,False,False,False
+4345,Veio Transmissão,10473,5QN407271C,1.0,1.0,760.16,2026-09-05,PO,,,,,,,Veio Transmissão,True,False,False,False
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,1.0,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.8,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Velas de ignição,10476,04E905601B,0.4,4.0,21.02,2026-09-05,PO,Velas de ignição,04E905601B,21.02,2026-09-05 00:00:00.0,4.0,PO,Velas de ignição,True,True,True,True
+4345,Volante Motor,10490,05E105266F,6.3,1.0,783.74,2026-09-05,PO,,,,,,,Volante Motor,True,False,False,False
+4345,Filtro Particulas (FAP),10491,5QN254502A,1.4,1.0,6410.57,2026-09-05,PO,,,,,,,Filtro Particulas (FAP),True,False,False,False
+4345,Escovas Limpa Para Brisas Tras,10495,5NN95542703C,0.2,1.0,20.53,2026-09-05,PO,,,,,,,Escovas Limpa Para Brisas Tras,True,False,False,False
+,,10503,,,,,,,,,,,,,Velas de incandescência,False,False,False,False
+4345,Correia de Acessórios,10504,04E145933AG,0.1,1.0,19.96,2026-09-05,PO,,,,,,,Correia de Acessórios,True,False,False,False
+,,10511,,,,,,,,,,,,,Injetor ADBlue,False,False,False,False
+,,10512,,,,,,,,,,,,,Depósito ADBlue,False,False,False,False
+4345,Cabeçote Amortecedor,10525,5QM412331A,1.6,1.0,52.11,2026-09-05,PO,,,,,,,Cabeçote Amortecedor,True,False,False,False
+,,10561,,,,,,,,,,,,,Prato Embraiagem,False,False,False,False
+,,10566,,,,,,,,,,,,,Rolamento Encosto,False,False,False,False
+,,10604,,,,,,,,,,,,,Correia Distribuição 2,False,False,False,False
+4345,Escovas Limpa Para Brisas Dianteiras 2,10605,5NN95542603C,0.2,1.0,30.89,2026-09-05,PO,,,,,,,Escovas Limpa Para Brisas Dianteiras 2,True,False,False,False
+,,10606,,,,,,,,,,,,,Amortecedor Dianteiro 2,False,False,False,False
+,,10607,,,,,,,,,,,,,Amortecedor Traseiro 2,False,False,False,False
+4345,Óleo da Caixa de Velocidades - Manual,CS,G052182A2,0.9,5.5,66.89,2026-09-05,PO,,,,,,,Óleo da Caixa de Velocidades - Manual,True,False,False,False
+4345,Liquido Anti Congelante,LA,G12E050A2,0.9,5.0,20.54,2026-09-05,PO,,,,,,,Liquido Anti Congelante,True,False,False,False
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+4345,SIGOU - EcoValor,LS,EcoValor,0.7,4.3,0.1,2026-09-05,PO,SIGOU - EcoValor,EcoValor,0.1,2026-09-05 00:00:00.0,4.3,PO,SIGOU - EcoValor,True,True,True,True
+,,LTA,,,,,,,,,,,,,Óleo da Caixa de Velocidades - Automática,False,False,False,False
+,,M,,,,,,,,,,,,,Liquido ADBlue,False,False,False,False
+,,Mi,,,,,,,,,,,,,Mineral,False,False,False,False
+,,S,,,,,,,,,,,,,Sintético,False,False,False,False
+,,S/S,,,,,,,,,,,,,Semi-Sintético,False,False,False,False
+4345,Líquido de Travões,SLT,B000750M3,0.7,1.0,24.9,2026-09-05,PO,,,,,,,Líquido de Travões,True,False,False,False
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
+4345,Especial,X,VAG_0W20,0.6,4.3,21.32,2026-09-05,PO,Especial,VAG_0W20,21.32,2026-09-05 00:00:00.0,4.3,PO,Especial,True,True,True,True
