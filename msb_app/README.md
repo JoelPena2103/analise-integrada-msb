@@ -11,6 +11,28 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Login (ecrã de arranque)
+
+A app arranca sempre num ecrã de login — sem barra lateral nem páginas,
+só o formulário de acesso. Só depois de autenticado é que aparece a app
+descrita abaixo. Há dois métodos:
+
+- **Password fixa** — definida em `.streamlit/secrets.toml`, secção
+  `[auth]`, chave `password` (por omissão `fleetdata2026` se o ficheiro
+  não existir). Ver `utils/auth.py`.
+- **Código de acesso partilhado** — gerado na página **🔑 Acessos**
+  (grupo "Administração", visível apenas a quem entra com a password).
+  Cada código é aleatório e único, **não é guardado em lado nenhum**
+  (vive só na memória do processo do servidor — reiniciar o servidor
+  invalida todos os códigos), e dura **4 horas a contar da primeira
+  utilização** (enquanto não for usado, não expira). Passadas as 4
+  horas, a sessão aberta com esse código é terminada e volta ao login.
+  Lógica em `utils/codes.py`.
+
+Como os códigos vivem na memória do servidor, isto assume um **único
+processo** de servidor (`streamlit run app.py`) — quem gera o código e
+quem o usa têm de estar ligados ao mesmo servidor.
+
 A aplicação abre com 4 páginas na barra lateral, que correspondem ao fluxo
 de trabalho descrito no documento do projeto:
 
@@ -105,39 +127,48 @@ Ficheiros mensais `kinto_Maintenance_Profile_AAAA_MM_DD.csv` e
 `kinto_Vehicle_All_AAAA_MM_DD.csv` (delimitador `;`, mesma estrutura
 todos os meses — só muda o nº de linhas e a data no nome). 2 páginas:
 
-1. **🗓️ Kinto Importar** — carregar um ou vários ficheiros mensais de
-   uma vez. O mês/ano são detetados automaticamente pelo nome do
-   ficheiro (regex `AAAA_MM_DD`), mostrados numa tabela editável para
-   confirmar/corrigir antes de importar. Cada mês fica guardado num
-   histórico persistido (`kinto_maintenance_historico.csv` /
-   `kinto_vehicle_historico.csv`); reimportar o mesmo mês substitui-o
-   (upsert), sem duplicar linhas.
-2. **📅 Kinto Dashboard** — liga o histórico às bases já existentes da
-   Fase 1: `kinto_maintenance_historico` ↔ `maintenance.csv` (chave
-   `MsbKeyID` ↔ `id`) e `kinto_vehicle_historico` ↔ `cars.csv` (chave
-   `CarID`/`CARID` ↔ `carId`). 2 separadores (Maintenance / Vehicle All),
-   cada um com:
-   - Filtros por marca, qualidade (ou status, no separador Vehicle All),
-     ano e mês — as opções mostradas são só as que existem nos dados
-     importados.
-   - KPIs de resumo, gráfico de quantidade por marca e por
-     qualidade/status.
-   - Evolução mensal com alternância **Acumulado** (contagem total por
-     mês) ou **Diferença vs. mês anterior** (quantos ids são novos,
-     quantos mudaram de valor e quantos ficaram iguais — o que foi
-     efetivamente atualizado, e não apenas repetido).
+1. **🗓️ Kinto Importar** — carregar um ou vários ficheiros de uma vez.
+   O mês/ano são detetados automaticamente pelo nome do ficheiro (regex
+   `AAAA_MM_DD`), mostrados numa tabela editável para confirmar/corrigir
+   antes de importar.
+   - `kinto_Maintenance_Profile` acumula num **histórico mensal**
+     (`kinto_maintenance_historico.csv`); reimportar o mesmo mês
+     substitui-o (upsert), sem duplicar linhas.
+   - `kinto_Vehicle_All` **não** é histórico — mantém sempre só o
+     **ficheiro mais recente** (`kinto_vehicle_historico.csv`); cada
+     nova importação substitui por completo a anterior. As colunas
+     `ano`/`mes` são mantidas na mesma, para referência.
+2. **📅 Kinto Dashboard** — a base de comparação, em ambos os separadores,
+   é sempre `maintenance.csv` **filtrado a `kinto == "kinto"`** (só faz
+   sentido comparar o que já sabemos ser kinto no nosso sistema).
+   - **Separador Maintenance**: liga (inner join) o histórico
+     `kinto_maintenance_historico` a essas linhas kinto (chave `MsbKeyID`
+     ↔ `id`) — linhas cujo id não seja kinto em `maintenance.csv` são
+     descartadas. Filtros por marca, qualidade, ano e mês (só mostra
+     opções existentes nos dados). Gráficos de quantidade por marca e
+     por qualidade, e evolução mensal com alternância **Acumulado**
+     (contagem total por mês) / **Diferença vs. mês anterior** (ids
+     novos, alterados e sem alteração — o que foi efetivamente
+     atualizado).
+   - **Separador Vehicle All**: já não faz merge por id — em vez disso,
+     calcula a **relação de totais de carid's por marca** entre o último
+     ficheiro `kinto_Vehicle_All` (nº de linhas = carid's do export) e o
+     total de `contagem_carids` em `maintenance.csv` (linhas kinto). A
+     1ª coluna da tabela é `kinto_prioridade` (de `maintenance.csv`).
+     Mostra também a distribuição de qualidade (msbQuality) dessas linhas
+     kinto, por marca.
    - Exportação Excel — separador atual ou todos (o separador não
-     visitado nesta sessão exporta sem filtros aplicados).
+     visitado nesta sessão exporta sem filtros aplicados, usando os
+     dados completos).
 
 ### Suposições da Fase 3 (a validar com dados reais)
 
 Não tive ficheiros reais `kinto_Maintenance_Profile`/`kinto_Vehicle_All`
 para confirmar nomes exatos de colunas, por isso a ligação usa resolução
 de colunas insensível a maiúsculas/minúsculas (`find_col` em
-`utils/kinto_logic.py`), tentando `MsbKeyID`/`id`, `Make`/`make`,
-`CarID`/`CARID`/`carId`, `Status`/`status`. Se os ficheiros reais usarem
-nomes diferentes destes, é só ajustar as listas de candidatos nesse
-ficheiro.
+`utils/kinto_logic.py`), tentando `MsbKeyID`/`id`, `Make`/`make`. Se os
+ficheiros reais usarem nomes diferentes destes, é só ajustar as listas
+de candidatos nesse ficheiro.
 
 ## Estrutura do projeto
 
