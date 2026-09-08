@@ -4,6 +4,9 @@ import pandas as pd
 from utils.io_utils import save_uploaded_file, load_csv, file_exists, READ_CONFIG
 from utils.branding import set_logo
 
+
+
+
 st.set_page_config(page_title="Importar Ficheiros — MSB", page_icon="📥", layout="wide")
 set_logo()
 st.title("📥 Importar Ficheiros")
@@ -80,3 +83,6 @@ st.write(
     "Depois de importar o **maintenance_profiles.csv**, siga para a página "
     "**🔑 Gerador Keys** para calcular as quality keys e a previsão de qualidade."
 )
+
+
+ 
