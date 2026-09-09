@@ -49,8 +49,10 @@ def import_block(key: str, titulo: str, descricao: str, exemplo_cols: list[str] 
 import_block(
     "part_description",
     "part_description.csv",
-    "Catálogo de peças possíveis para recolha (uma peça = uma linha, identificada por 'id').",
-    exemplo_cols=["id", "partDescription"],
+    "Catálogo de peças possíveis para recolha (uma peça = uma linha, identificada por 'id'). "
+    "A coluna 'description' é a descrição oficial de cada peça, usada para comparar com o "
+    "que foi registado em task_parts.csv (coluna 'partDescription').",
+    exemplo_cols=["id", "description"],
 )
 
 import_block(
