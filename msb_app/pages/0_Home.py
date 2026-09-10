@@ -11,7 +11,7 @@ from utils.io_utils import pipeline_status, last_modified
 from utils.branding import set_logo
 
 st.set_page_config(
-    page_title="Análise Integrada MSB",
+    page_title="Análise Integrada MSB - TESTE ",
     page_icon="🚗",
     layout="wide",
 )
@@ -34,7 +34,7 @@ CUSTOM_CSS = """
 """
 st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
-st.title("🚗 Análise Integrada de MSB")
+st.title("🚗 Análise Integrada de MSB - TESTE ")
 st.caption(
     "Importar, tratar, ligar e analisar os ficheiros de perfis de manutenção, frota "
     "e check service, num só lugar."

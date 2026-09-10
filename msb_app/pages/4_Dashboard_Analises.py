@@ -7,7 +7,7 @@ import streamlit as st
 
 from utils.io_utils import file_exists, load_csv
 from utils.branding import set_logo
-from utils.merge_logic import quality_ratio_by_make, compute_anos_diferenca
+from utils.merge_logic import quality_ratio_by_make, compute_anos_diferenca, add_copy_key_counts
 
 st.set_page_config(page_title="Dashboard — MSB", page_icon="📊", layout="wide")
 set_logo()
@@ -35,6 +35,10 @@ if "anos_diferenca" in df.columns:
     df["anos_diferenca"] = pd.to_numeric(df["anos_diferenca"], errors="coerce").fillna(0).astype(int)
 else:
     df["anos_diferenca"] = compute_anos_diferenca(df)
+
+# copy_q3 / copy_q2: idem — calcula-se na hora se o ficheiro for anterior.
+if "copy_q3" not in df.columns or "copy_q2" not in df.columns:
+    df = add_copy_key_counts(df)
 
 st.sidebar.header("Filtros")
 

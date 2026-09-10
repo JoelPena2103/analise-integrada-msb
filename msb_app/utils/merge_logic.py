@@ -283,7 +283,40 @@ def build_maintenance(
         base["observacoes"] = ""
 
     base = base.drop(columns=["_msbkey_norm"], errors="ignore")
+    base = add_copy_key_counts(base)
     return base
+
+
+def add_copy_key_counts(
+    df: pd.DataFrame,
+    source_cols: tuple[tuple[str, str], ...] = (
+        ("quality3_key", "copy_q3"),
+        ("quality2_key", "copy_q2"),
+    ),
+    anchor_col: str = "contagem_carids",
+) -> pd.DataFrame:
+    """
+    Para cada linha, conta quantas linhas do ficheiro têm exactamente o
+    mesmo valor de `quality3_key` (-> copy_q3) e de `quality2_key`
+    (-> copy_q2). Linhas com a chave vazia são contadas todas juntas.
+
+    As colunas resultantes ficam imediatamente a seguir a `contagem_carids`.
+    """
+    df = df.copy()
+    novas: list[str] = []
+    for src, dest in source_cols:
+        if src not in df.columns:
+            continue
+        chave = df[src].fillna("").astype(str)
+        df[dest] = chave.groupby(chave).transform("size").astype(int)
+        novas.append(dest)
+
+    if novas and anchor_col in df.columns:
+        cols = [c for c in df.columns if c not in novas]
+        pos = cols.index(anchor_col) + 1
+        cols[pos:pos] = novas
+        df = df[cols]
+    return df
 
 
 def quality_ratio_by_make(

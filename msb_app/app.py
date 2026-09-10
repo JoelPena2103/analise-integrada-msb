@@ -139,6 +139,8 @@ pagina_check_dashboard = st.Page("pages/6_Check_Dashboard.py", title="Check Dash
 pagina_kinto_importar = st.Page("pages/7_Kinto_Importar.py", title="Kinto Importar", icon="🗓️")
 pagina_kinto_dashboard = st.Page("pages/8_Kinto_Dashboard.py", title="Kinto Dashboard", icon="📅")
 
+pagina_analises_sql = st.Page("pages/10_Analises_SQL.py", title="Análises SQL", icon="🧮")
+
 grupos = {
     "Fase 1 — Manutenção": [
         pagina_home,
@@ -154,6 +156,9 @@ grupos = {
     "Fase 3 — Kinto Analisis": [
         pagina_kinto_importar,
         pagina_kinto_dashboard,
+    ],
+    "Extras": [
+        pagina_analises_sql,
     ],
 }
 
