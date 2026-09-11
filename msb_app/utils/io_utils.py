@@ -33,13 +33,9 @@ import streamlit as st
 from sqlalchemy import inspect, text
 from sqlalchemy.exc import IntegrityError, OperationalError
 
-# Prefixo das tabelas, para não colidir com outras tabelas que já existam
-# na mesma base de dados (ex.: tabelas de login / códigos temporários).
 TABLE_PREFIX = "msb_"
 META_TABLE = f"{TABLE_PREFIX}_meta"
 
-# Nome "canónico" de cada tabela do pipeline (equivalente aos antigos
-# caminhos de ficheiro em FILES).
 TABLES = {
     "maintenance_profiles": "maintenance_profiles",
     "maintenance_profiles_final": "maintenance_profiles_final",
@@ -55,9 +51,6 @@ TABLES = {
     "kinto_vehicle_historico": "kinto_vehicle_historico",
 }
 
-# Configuração de leitura dos CSVs BRUTOS enviados pelo utilizador
-# (delimitador / encoding) — usada só no momento do upload, para os
-# converter em DataFrame antes de gravar na base de dados.
 READ_CONFIG = {
     "maintenance_profiles": {"sep": ",", "encoding": "utf-8", "dtype": str},
     "maintenance_profiles_final": {"sep": ",", "encoding": "utf-8", "dtype": str},
@@ -75,17 +68,10 @@ READ_CONFIG = {
 
 FALLBACK_ENCODINGS = ["utf-8", "latin-1", "cp1252"]
 
-# Quanto tempo (em segundos) os dados ficam em cache antes de se voltar a
-# perguntar à base de dados — mesmo sem nenhuma escrita pelo meio. Serve de
-# rede de segurança para o caso de haver alterações feitas por fora da app
-# (ex.: editadas diretamente no Supabase). Sempre que a app grava algo,
-# a cache é limpa de imediato, sem esperar por este tempo.
 CACHE_TTL_SEGUNDOS = 300  # 5 minutos
 
 
 def _get_connection():
-    """st.connection já faz cache/pooling internamente — não é preciso
-    voltar a envolver isto em @st.cache_resource."""
     return st.connection("postgresql", type="sql")
 
 
@@ -128,47 +114,85 @@ def _touch_meta(key: str):
 
 
 def _limpar_cache() -> None:
-    """Invalida toda a cache — chamado depois de qualquer escrita, para que
-    a próxima leitura (de qualquer sessão/utilizador) veja logo os dados
-    atualizados, sem esperar pelo CACHE_TTL_SEGUNDOS."""
+    """Invalida toda a cache — chamado depois de qualquer escrita."""
     _file_exists_cached.clear()
     _load_csv_cached.clear()
     _last_modified_cached.clear()
+    list_views.clear()
+    list_functions.clear()
+    list_functions_com_parametros.clear()
+    load_analise.clear()
+
+
+def _pg_type_for_dtype(dtype) -> str:
+    """Mapeia um dtype do pandas para um tipo razoável do Postgres, usado
+    em ALTER TABLE ADD COLUMN para colunas novas que ainda não existam."""
+    if pd.api.types.is_bool_dtype(dtype):
+        return "BOOLEAN"
+    if pd.api.types.is_integer_dtype(dtype):
+        return "BIGINT"
+    if pd.api.types.is_float_dtype(dtype):
+        return "DOUBLE PRECISION"
+    if pd.api.types.is_datetime64_any_dtype(dtype):
+        return "TIMESTAMP"
+    return "TEXT"
+
+
+def _replace_table_contents(df: pd.DataFrame, table: str, conn) -> None:
+    """
+    Substitui o CONTEÚDO de uma tabela já existente, SEM a apagar —
+    acrescenta colunas novas que faltem (ALTER TABLE ADD COLUMN), esvazia
+    (TRUNCATE) e insere os dados novos. Como a tabela nunca é apagada,
+    quaisquer views/funções que dependam dela continuam a funcionar.
+    """
+    colunas_existentes = {c["name"] for c in inspect(conn.engine).get_columns(table)}
+    colunas_novas = [c for c in df.columns if c not in colunas_existentes]
+
+    with conn.session as s:
+        for col in colunas_novas:
+            tipo_pg = _pg_type_for_dtype(df[col].dtype)
+            s.execute(text(f'ALTER TABLE "{table}" ADD COLUMN IF NOT EXISTS "{col}" {tipo_pg}'))
+        s.execute(text(f'TRUNCATE TABLE "{table}"'))
+        s.commit()
+
+    df.to_sql(table, conn.engine, if_exists="append", index=False, method="multi", chunksize=5000)
 
 
 def save_csv(df: pd.DataFrame, key: str, tentativas: int = 3) -> None:
     """
-    Grava (substitui por completo) a tabela correspondente a `key`.
+    Grava os dados na tabela correspondente a `key`.
 
-    Em apps partilhadas, duas escritas quase simultâneas à mesma tabela
-    podem colidir a apagar/recriar o tipo interno do Postgres associado à
-    tabela (erro "duplicate key value ... pg_type_typname_nsp_index").
-    Isto é raro e transitório — por isso tenta-se automaticamente de novo
-    algumas vezes antes de desistir.
+    Se a tabela ainda não existir, cria-a de raiz. Se já existir, NUNCA a
+    apaga — só acrescenta colunas novas que faltem e substitui o
+    conteúdo (TRUNCATE + INSERT). Importante porque, se alguma view/função
+    criada no Supabase depender desta tabela, apagá-la e recriá-la
+    (`DROP TABLE`, o que "if_exists=replace" faz por trás) falharia com
+    um erro de dependências.
     """
     conn = _get_connection()
+    table = _table_name(key)
     ultimo_erro = None
     for tentativa in range(1, tentativas + 1):
         try:
-            df.to_sql(
-                _table_name(key), conn.engine, if_exists="replace", index=False,
-                method="multi", chunksize=5000,
-            )
+            if inspect(conn.engine).has_table(table):
+                _replace_table_contents(df, table, conn)
+            else:
+                df.to_sql(
+                    table, conn.engine, if_exists="replace", index=False,
+                    method="multi", chunksize=5000,
+                )
             _touch_meta(key)
             _limpar_cache()
             return
         except (IntegrityError, OperationalError) as e:
             ultimo_erro = e
-            time.sleep(0.5 * tentativa)  # pequena espera crescente antes de repetir
+            time.sleep(0.5 * tentativa)
             continue
     raise ultimo_erro
 
 
 def save_uploaded_file(uploaded_file, key: str) -> None:
-    """
-    Lê o CSV enviado pelo utilizador (com o delimitador/encoding certos)
-    e grava-o já como tabela na base de dados.
-    """
+    """Lê o CSV enviado pelo utilizador e grava-o já como tabela na base de dados."""
     cfg = dict(READ_CONFIG[key])
     encoding_configurado = cfg.pop("encoding", "utf-8")
     encodings_a_tentar = [encoding_configurado] + [
@@ -226,8 +250,6 @@ def last_modified(key: str):
 
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner=False)
 def list_views(prefix: str = "msb_") -> list[str]:
-    """Lista as views existentes na base de dados (ex.: criadas à mão no
-    SQL Editor do Supabase), para popular um selectbox na app."""
     conn = _get_connection()
     df = conn.query(
         "SELECT table_name FROM information_schema.views "
@@ -239,29 +261,8 @@ def list_views(prefix: str = "msb_") -> list[str]:
     return df["table_name"].tolist()
 
 
-@st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner="A carregar view...")
-def load_view(view_name: str) -> pd.DataFrame:
-    """
-    Lê uma view do Postgres (ex.: msb_kinto_quality) como DataFrame.
-    `view_name` deve vir sempre de list_views() ou de uma lista fixa
-    conhecida — nunca de texto livre do utilizador, para não abrir uma
-    porta a SQL arbitrário.
-    """
-    if view_name not in list_views(""):
-        raise ValueError(f"'{view_name}' não é uma view conhecida da base de dados.")
-    conn = _get_connection()
-    return conn.query(f"SELECT * FROM {view_name}", ttl=0)
-
-
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner=False)
 def list_functions(prefix: str = "msb_") -> list[str]:
-    """
-    Lista funções SQL sem argumentos (ex.: criadas no SQL Editor do
-    Supabase) que devolvam uma tabela/conjunto de linhas — para poderem
-    ser tratadas como "análises" disponíveis, tal como as views.
-    Funções COM argumentos não entram aqui de propósito: chamá-las exigiria
-    pedir esses valores ao utilizador, o que ainda não está implementado.
-    """
     conn = _get_connection()
     df = conn.query(
         "SELECT p.proname AS nome "
@@ -277,19 +278,11 @@ def list_functions(prefix: str = "msb_") -> list[str]:
 
 
 def list_analises(prefix: str = "msb_") -> list[str]:
-    """Views + funções sem argumentos, juntas numa só lista (para o
-    selectbox da página de Análises SQL)."""
     return sorted(set(list_views(prefix)) | set(list_functions(prefix)))
 
 
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner="A carregar dados...")
 def load_analise(nome: str) -> pd.DataFrame:
-    """
-    Lê uma view OU uma função sem argumentos como DataFrame — detecta
-    automaticamente qual dos dois tipos `nome` é. `nome` deve vir sempre
-    de list_analises() ou de uma lista fixa conhecida — nunca de texto
-    livre do utilizador, para não abrir uma porta a SQL arbitrário.
-    """
     if nome in list_views(""):
         sql = f"SELECT * FROM {nome}"
     elif nome in list_functions(""):
@@ -302,12 +295,6 @@ def load_analise(nome: str) -> pd.DataFrame:
 
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner=False)
 def list_functions_com_parametros(prefix: str = "msb_") -> dict[str, list[tuple[str, str]]]:
-    """
-    Lista funções SQL COM argumentos (ex.: criadas no SQL Editor do
-    Supabase). Devolve {nome_funcao: [(nome_parametro, tipo_sql), ...]},
-    para a app conseguir gerar automaticamente um campo de input adequado
-    a cada parâmetro (data, número, texto, ...).
-    """
     conn = _get_connection()
     df = conn.query(
         "SELECT p.proname AS nome, "
@@ -327,7 +314,7 @@ def list_functions_com_parametros(prefix: str = "msb_") -> dict[str, list[tuple[
             pedaco = pedaco.strip()
             if not pedaco:
                 continue
-            partes = pedaco.split(" ", 1)  # "nome tipo" -> só a 1ª espaço separa
+            partes = pedaco.split(" ", 1)
             if len(partes) == 2:
                 parametros.append((partes[0], partes[1]))
             else:
@@ -337,13 +324,6 @@ def list_functions_com_parametros(prefix: str = "msb_") -> dict[str, list[tuple[
 
 
 def call_function(nome: str, valores: dict) -> pd.DataFrame:
-    """
-    Chama uma função COM argumentos (de list_functions_com_parametros),
-    com os valores escolhidos pelo utilizador. `nome` deve vir sempre de
-    list_functions_com_parametros() — nunca de texto livre, para não abrir
-    uma porta a SQL arbitrário. Os VALORES dos parâmetros são sempre
-    passados como parâmetros de query (nunca colados na string SQL).
-    """
     funcoes = list_functions_com_parametros("")
     if nome not in funcoes:
         raise ValueError(f"'{nome}' não é uma função conhecida da base de dados.")
@@ -360,7 +340,6 @@ def call_function(nome: str, valores: dict) -> pd.DataFrame:
 
 
 def pipeline_status() -> dict:
-    """Devolve o estado (presente/ausente + nº de linhas) de cada tabela."""
     status = {}
     for key in TABLES:
         if file_exists(key):
