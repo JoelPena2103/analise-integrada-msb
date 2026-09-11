@@ -158,6 +158,26 @@ def _replace_table_contents(df: pd.DataFrame, table: str, conn) -> None:
     df.to_sql(table, conn.engine, if_exists="append", index=False, method="multi", chunksize=5000)
 
 
+def _table_exists_live(table: str, conn) -> bool:
+    """
+    Pergunta diretamente à base de dados (sem passar pelo Inspector do
+    SQLAlchemy, que pode dar respostas desatualizadas nalguns cenários)
+    se a tabela existe mesmo, agora. Usado dentro de save_csv, onde é
+    crítico não errar esta resposta — errar para "não existe" faria o
+    código cair no caminho antigo (DROP TABLE), que falha se houver
+    views/funções dependentes.
+    """
+    resultado = conn.query(
+        "SELECT EXISTS ("
+        "  SELECT 1 FROM information_schema.tables "
+        "  WHERE table_schema = 'public' AND table_name = :t"
+        ") AS existe",
+        params={"t": table},
+        ttl=0,
+    )
+    return bool(resultado.iloc[0]["existe"])
+
+
 def save_csv(df: pd.DataFrame, key: str, tentativas: int = 3) -> None:
     """
     Grava os dados na tabela correspondente a `key`.
@@ -174,7 +194,7 @@ def save_csv(df: pd.DataFrame, key: str, tentativas: int = 3) -> None:
     ultimo_erro = None
     for tentativa in range(1, tentativas + 1):
         try:
-            if inspect(conn.engine).has_table(table):
+            if _table_exists_live(table, conn):
                 _replace_table_contents(df, table, conn)
             else:
                 df.to_sql(
