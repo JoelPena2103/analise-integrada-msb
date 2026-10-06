@@ -17,17 +17,7 @@ A app arranca sempre num ecrã de login — sem barra lateral nem páginas,
 só o formulário de acesso. Só depois de autenticado é que aparece a app
 descrita abaixo. Há dois métodos:
 
-- **Password fixa** — definida em `.streamlit/secrets.toml`, secção
-  `[auth]`, chave `password` (por omissão `fleetdata2026` se o ficheiro
-  não existir). Ver `utils/auth.py`.
-- **Código de acesso partilhado** — gerado na página **🔑 Acessos**
-  (grupo "Administração", visível apenas a quem entra com a password).
-  Cada código é aleatório e único, **não é guardado em lado nenhum**
-  (vive só na memória do processo do servidor — reiniciar o servidor
-  invalida todos os códigos), e dura **4 horas a contar da primeira
-  utilização** (enquanto não for usado, não expira). Passadas as 4
-  horas, a sessão aberta com esse código é terminada e volta ao login.
-  Lógica em `utils/codes.py`.
+
 
 Como os códigos vivem na memória do servidor, isto assume um **único
 processo** de servidor (`streamlit run app.py`) — quem gera o código e

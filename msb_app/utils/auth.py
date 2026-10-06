@@ -11,14 +11,15 @@ from __future__ import annotations
 import hmac
 
 import streamlit as st
+import secrets as _secrets
 
 # Usada apenas se não houver `[auth] password` em .streamlit/secrets.toml.
-_PASSWORD_POR_OMISSAO = "fleetdata2026"
+_PASSWORD_POR_OMISSAO = _secrets.token_urlsafe(32)
 
 
 def _password_correta() -> str:
     try:
-        return str(st.secrets["auth"]["password"])
+        return str(st.secrets["auth"]["password"]) or _PASSWORD_POR_OMISSAO
     except Exception:
         return _PASSWORD_POR_OMISSAO
 
