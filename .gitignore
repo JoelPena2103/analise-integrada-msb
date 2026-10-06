@@ -1,2 +1,5 @@
 msb_app/.streamlit/
 __pycache__/
+
+.venv/
+*:Zone.Identifier
