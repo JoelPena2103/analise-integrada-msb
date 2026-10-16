@@ -15,6 +15,9 @@ final, conforme descrito no documento do projeto:
    só são kinto se o maxEndDate estiver a, no máximo, "1 ano" de
    distância da data de referência (por omissão, hoje) — em qualquer
    sentido (passado ou futuro).
+   Exceção: as marcas exóticas em MARCAS_EXCLUIDAS_KINTO (Maserati, Lotus,
+   Lamborghini, Ferrari, Bentley, Aston Martin) nunca são kinto, mesmo
+   que estejam "Ativo".
 
 Nota sobre suposições assumidas (a rever/ajustar conforme o negócio real):
 - "contagem de carid's por id" = nº de carId distintos em cars.csv para
@@ -32,6 +35,22 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+# Marcas exóticas que NÃO contam para a Kinto, mesmo com status "Ativo".
+# Para acrescentar ou retirar uma marca, basta editar esta lista (a
+# comparação ignora maiúsculas/minúsculas e espaços a mais).
+MARCAS_EXCLUIDAS_KINTO: tuple[str, ...] = (
+    "MASERATI",
+    "LOTUS",
+    "LAMBORGHINI",
+    "FERRARI",
+    "BENTLEY",
+    "ASTON MARTIN",
+)
+
+
+# Colunas que vêm dos perfis mas não são necessárias no maintenance.csv final.
+COLUNAS_FORA_DO_MAINTENANCE: tuple[str, ...] = ("sumCapacity",)
+
 
 def _norm_key(series: pd.Series) -> pd.Series:
     return series.astype(str).str.strip().str.lower()
@@ -39,6 +58,24 @@ def _norm_key(series: pd.Series) -> pd.Series:
 
 def _norm_text(series: pd.Series) -> pd.Series:
     return series.astype(str).str.strip().str.upper()
+
+
+def _parse_dates(series: pd.Series) -> pd.Series:
+    """
+    Converte uma coluna de datas para datetime, sem avisos do pandas.
+
+    Primeiro lê o formato ISO (ex.: "2025-05-02 00:00:00.0", que é o dos
+    ficheiros do sistema). Só nas datas que não estiverem em ISO (ex.:
+    "02/05/2025") usa a leitura com o dia primeiro. Valores vazios ou
+    inválidos ficam como NaT.
+    """
+    iso = pd.to_datetime(series, format="ISO8601", errors="coerce")
+    por_resolver = iso.isna() & series.notna() & (series.astype(str).str.strip() != "")
+    if por_resolver.any():
+        outras = pd.to_datetime(series[por_resolver], errors="coerce", dayfirst=True)
+        iso = iso.copy()
+        iso[por_resolver] = outras
+    return iso
 
 
 def merge_maintenance_cars(
@@ -67,6 +104,12 @@ def merge_maintenance_cars(
         raise ValueError(f"Coluna '{msbkey_col_profiles}' não encontrada em maintenance_profiles_FINAL.")
     if msbkey_col_cars not in cars.columns:
         raise ValueError(f"Coluna '{msbkey_col_cars}' não encontrada em cars.csv.")
+
+    # O `id` identifica o perfil: se o ficheiro tiver o mesmo id repetido
+    # (ex.: gravações duplicadas), cada cópia receberia a contagem completa de
+    # carId's e todos os totais (ids, carid's, matrículas, kinto) inflacionavam.
+    if "id" in mp.columns:
+        mp = mp.drop_duplicates(subset="id", keep="last")
 
     mp["_msbkey_norm"] = _norm_key(mp[msbkey_col_profiles])
     cars["_msbkey_norm"] = _norm_key(cars[msbkey_col_cars])
@@ -185,6 +228,8 @@ def compute_kinto(
     carid_count_col: str = "contagem_carids",
     ref_date: pd.Timestamp | None = None,
     dias_limite: int = 365,
+    make_col: str = "make",
+    marcas_excluidas: tuple[str, ...] = MARCAS_EXCLUIDAS_KINTO,
 ) -> pd.Series:
     """
     Regra do "kinto":
@@ -196,6 +241,8 @@ def compute_kinto(
       1 ano) de distância da data de referência (por omissão, hoje) — em
       qualquer sentido, passado ou futuro.
     - qualquer outro status   -> nunca é kinto.
+    - marcas em `marcas_excluidas` (exóticas) -> nunca são kinto, qualquer
+      que seja o status.
     """
     if ref_date is None:
         ref_date = pd.Timestamp.today().normalize()
@@ -214,13 +261,28 @@ def compute_kinto(
         tem_carids = pd.Series(True, index=df.index)
 
     if date_col in df.columns:
-        dates = pd.to_datetime(df[date_col], errors="coerce", dayfirst=True)
+        dates = _parse_dates(df[date_col])
         diff_days = (dates - ref_date).dt.days.abs()
         descontinuado_dentro_prazo = is_descontinuado & dates.notna() & (diff_days <= dias_limite)
     else:
         descontinuado_dentro_prazo = pd.Series(False, index=df.index)
 
-    kinto = np.where(tem_carids & (is_ativo | descontinuado_dentro_prazo), "kinto", "")
+    # Marcas exóticas excluídas da Kinto (comparação exata, sem distinguir
+    # maiúsculas/minúsculas nem espaços repetidos).
+    if make_col in df.columns and marcas_excluidas:
+        excluidas = {" ".join(str(m).split()).upper() for m in marcas_excluidas}
+        make_norm = (
+            df[make_col].astype(str).str.split().str.join(" ").str.upper()
+        )
+        marca_excluida = make_norm.isin(excluidas)
+    else:
+        marca_excluida = pd.Series(False, index=df.index)
+
+    kinto = np.where(
+        tem_carids & (is_ativo | descontinuado_dentro_prazo) & ~marca_excluida,
+        "kinto",
+        "",
+    )
     return pd.Series(kinto, index=df.index)
 
 
@@ -241,7 +303,7 @@ def compute_anos_diferenca(
     if date_col not in df.columns:
         return pd.Series(0, index=df.index, dtype=int)
 
-    dates = pd.to_datetime(df[date_col], errors="coerce", dayfirst=True)
+    dates = _parse_dates(df[date_col])
     dif_dias = (dates - ref_date).abs().dt.days
     dif_dias = dif_dias.fillna(0)
     anos = (dif_dias // 365).astype(int)
@@ -282,7 +344,7 @@ def build_maintenance(
     if "observacoes" not in base.columns:
         base["observacoes"] = ""
 
-    base = base.drop(columns=["_msbkey_norm"], errors="ignore")
+    base = base.drop(columns=["_msbkey_norm", *COLUNAS_FORA_DO_MAINTENANCE], errors="ignore")
     base = add_copy_key_counts(base)
     return base
 

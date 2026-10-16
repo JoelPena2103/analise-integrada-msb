@@ -1,0 +1,181 @@
+-[ RECORD 1 ]-------+----------------------------------
+id                  | 1077401
+msbKey              | M265515199140170
+vehicleTypeCode     | C
+make                | CAVAN
+model               | LEFU
+mark                | 1
+engineSize          | 0
+description         | Cavan LEFU  E 170cv MK1_C
+fuelType            | ELECTRIC
+powerHp             | 170
+markYear            | 2024
+sumCapacity         | 0.00
+minIntroductionDate | 2025-01-01 00:00:00.0
+maxEndDate          | 
+msbChangeDate       | 2026-09-06 00:00:00.0
+msbQuality          | 0
+status              | Ativo
+quality4_key        | CAVAN_LEFU_0_ELECTRIC_170_1
+quality3_key        | CAVAN_LEFU_0_ELECTRIC_1
+quality2_key        | CAVAN_LEFU_0_ELECTRIC
+quality1_key        | CAVAN_0_ELECTRIC
+predictedQuality    | 0
+id_copia            | 
+descricao_copia     | 
+contagem_carids     | 0
+copy_q3             | 2
+copy_q2             | 2
+matricula           | 
+VIN                 | 
+leasys_matriculas   | 0
+kinto_prioridade    | 
+kinto               | 
+anos_diferenca      | 0
+checkdate           | 
+observacoes         | 
+-[ RECORD 2 ]-------+----------------------------------
+id                  | 1077394
+msbKey              | M264815198140150
+vehicleTypeCode     | C
+make                | FARIZON
+model               | V7E
+mark                | 1
+engineSize          | 0
+description         | Farizon V7E  E 150cv MK1_C
+fuelType            | ELECTRIC
+powerHp             | 150
+markYear            | 2026
+sumCapacity         | 0.00
+minIntroductionDate | 2026-08-13 00:00:00.0
+maxEndDate          | 
+msbChangeDate       | 2026-09-06 00:00:00.0
+msbQuality          | 0
+status              | Ativo
+quality4_key        | FARIZON_V7E_0_ELECTRIC_150_1
+quality3_key        | FARIZON_V7E_0_ELECTRIC_1
+quality2_key        | FARIZON_V7E_0_ELECTRIC
+quality1_key        | FARIZON_0_ELECTRIC
+predictedQuality    | 0
+id_copia            | 
+descricao_copia     | 
+contagem_carids     | 2
+copy_q3             | 1
+copy_q2             | 1
+matricula           | 
+VIN                 | 
+leasys_matriculas   | 0
+kinto_prioridade    | 59
+kinto               | kinto
+anos_diferenca      | 0
+checkdate           | 
+observacoes         | 
+-[ RECORD 3 ]-------+----------------------------------
+id                  | 1077371
+msbKey              | M258315037132000170
+vehicleTypeCode     | C
+make                | MAXUS
+model               | DELIVER 7
+mark                | 1
+engineSize          | 2
+description         | Maxus Deliver 7 2.0 D 170cv MK1_C
+fuelType            | DIESEL
+powerHp             | 170
+markYear            | 2023
+sumCapacity         | 0.00
+minIntroductionDate | 2026-07-09 00:00:00.0
+maxEndDate          | 
+msbChangeDate       | 2026-09-06 00:00:00.0
+msbQuality          | 0
+status              | Ativo
+quality4_key        | MAXUS_DELIVER 7_2_DIESEL_170_1
+quality3_key        | MAXUS_DELIVER 7_2_DIESEL_1
+quality2_key        | MAXUS_DELIVER 7_2_DIESEL
+quality1_key        | MAXUS_2_DIESEL
+predictedQuality    | 0
+id_copia            | 
+descricao_copia     | 
+contagem_carids     | 0
+copy_q3             | 2
+copy_q2             | 2
+matricula           | 
+VIN                 | 
+leasys_matriculas   | 0
+kinto_prioridade    | 41
+kinto               | 
+anos_diferenca      | 0
+checkdate           | 
+observacoes         | 
+-[ RECORD 4 ]-------+----------------------------------
+id                  | 1077365
+msbKey              | M258314852140160
+vehicleTypeCode     | C
+make                | MAXUS
+model               | EDELIVER 3
+mark                | 1
+engineSize          | 0
+description         | Maxus eDeliver 3  E 160cv MK1_C
+fuelType            | ELECTRIC
+powerHp             | 160
+markYear            | 2021
+sumCapacity         | 0.00
+minIntroductionDate | 2026-07-09 00:00:00.0
+maxEndDate          | 
+msbChangeDate       | 2026-09-07 00:00:00.0
+msbQuality          | 1
+status              | Ativo
+quality4_key        | MAXUS_EDELIVER 3_0_ELECTRIC_160_1
+quality3_key        | MAXUS_EDELIVER 3_0_ELECTRIC_1
+quality2_key        | MAXUS_EDELIVER 3_0_ELECTRIC
+quality1_key        | MAXUS_0_ELECTRIC
+predictedQuality    | 1
+id_copia            | 
+descricao_copia     | 
+contagem_carids     | 0
+copy_q3             | 1
+copy_q2             | 1
+matricula           | 
+VIN                 | 
+leasys_matriculas   | 0
+kinto_prioridade    | 41
+kinto               | 
+anos_diferenca      | 0
+checkdate           | 
+observacoes         | 
+-[ RECORD 5 ]-------+----------------------------------
+id                  | 1076876
+msbKey              | M234514968140190
+vehicleTypeCode     | C
+make                | IVECO
+model               | EDAILY
+mark                | 1
+engineSize          | 0
+description         | Iveco eDaily  E 190cv MK1_C
+fuelType            | ELECTRIC
+powerHp             | 190
+markYear            | 2023
+sumCapacity         | 0.00
+minIntroductionDate | 2024-01-01 00:00:00.0
+maxEndDate          | 
+msbChangeDate       | 2026-09-07 00:00:00.0
+msbQuality          | 3
+status              | Ativo
+quality4_key        | IVECO_EDAILY_0_ELECTRIC_190_1
+quality3_key        | IVECO_EDAILY_0_ELECTRIC_1
+quality2_key        | IVECO_EDAILY_0_ELECTRIC
+quality1_key        | IVECO_0_ELECTRIC
+predictedQuality    | 3
+id_copia            | 
+descricao_copia     | 
+contagem_carids     | 20
+copy_q3             | 3
+copy_q2             | 3
+matricula           | 
+VIN                 | 
+leasys_matriculas   | 0
+kinto_prioridade    | 27
+kinto               | kinto
+anos_diferenca      | 0
+checkdate           | 
+observacoes         | 
+

@@ -23,7 +23,7 @@ opcoes = analises_simples + [f"{nome}{SUFIXO_PARAM}" for nome in funcoes_paramet
 if not opcoes:
     st.info(
         "Ainda não há nenhuma view ou função criada (com o prefixo 'msb_') na base de "
-        "dados. Crie uma no SQL Editor do Supabase — aparece aqui automaticamente."
+        "dados. Crie uma no SQL Editor — aparece aqui automaticamente."
     )
     st.stop()
 

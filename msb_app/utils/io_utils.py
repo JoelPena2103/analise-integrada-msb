@@ -75,6 +75,20 @@ def _get_connection():
     return st.connection("postgresql", type="sql")
 
 
+def _query(sql: str, params: dict | None = None) -> pd.DataFrame:
+    """
+    Executa uma consulta de leitura e devolve um DataFrame, FECHANDO a ligação.
+
+    Substitui o `conn.query()` do Streamlit, que deixa a ligação aberta em
+    "idle in transaction". Essas ligações seguram bloqueios de leitura nas
+    tabelas e impedem que um TRUNCATE/ALTER TABLE (a gravação de um ficheiro)
+    termine: a app ficava presa à espera de si própria.
+    """
+    conn = _get_connection()
+    with conn.engine.connect() as c:
+        return pd.read_sql(text(sql), c, params=params)
+
+
 def _table_name(key: str) -> str:
     return f"{TABLE_PREFIX}{TABLES[key]}"
 
@@ -138,27 +152,47 @@ def _pg_type_for_dtype(dtype) -> str:
     return "TEXT"
 
 
+def _libertar_leituras_penduradas(c) -> None:
+    """Termina leituras antigas desta base de dados que ficaram 'idle in
+    transaction' e que bloqueariam um ALTER TABLE (rede de segurança: com o
+    _query() acima já não deviam existir)."""
+    c.execute(text("""
+        SELECT pg_terminate_backend(pid)
+        FROM pg_stat_activity
+        WHERE datname = current_database()
+          AND usename = current_user
+          AND pid <> pg_backend_pid()
+          AND state = 'idle in transaction'
+          AND state_change < now() - interval '2 seconds'
+    """))
+
+
 def _replace_table_contents(df: pd.DataFrame, table: str, conn) -> None:
     """
-    Substitui o CONTEÚDO de uma tabela já existente, SEM a apagar —
-    acrescenta colunas novas que faltem (ALTER TABLE ADD COLUMN), esvazia
-    (TRUNCATE) e insere os dados novos. Como a tabela nunca é apagada,
-    quaisquer views/funções que dependam dela continuam a funcionar.
+    Substitui o CONTEÚDO de uma tabela já existente, SEM a apagar, numa só
+    transação: acrescenta as colunas novas que faltem (ALTER TABLE ADD
+    COLUMN), apaga as linhas antigas (DELETE) e insere as novas. Se algo
+    falhar a meio, nada muda. Como a tabela nunca é apagada, quaisquer
+    views/funções que dependam dela continuam a funcionar.
+
+    Não usa TRUNCATE porque este espera por qualquer leitura aberta na
+    tabela e pode ficar bloqueado; o DELETE convive com elas.
     """
     colunas_existentes = {c["name"] for c in inspect(conn.engine).get_columns(table)}
     colunas_novas = [c for c in df.columns if c not in colunas_existentes]
 
-    with conn.session as s:
-        for col in colunas_novas:
-            tipo_pg = _pg_type_for_dtype(df[col].dtype)
-            s.execute(text(f'ALTER TABLE "{table}" ADD COLUMN IF NOT EXISTS "{col}" {tipo_pg}'))
-        s.execute(text(f'TRUNCATE TABLE "{table}"'))
-        s.commit()
+    with conn.engine.begin() as c:
+        c.execute(text("SET LOCAL lock_timeout = '30s'"))
+        if colunas_novas:
+            _libertar_leituras_penduradas(c)
+            for col in colunas_novas:
+                tipo_pg = _pg_type_for_dtype(df[col].dtype)
+                c.execute(text(f'ALTER TABLE "{table}" ADD COLUMN IF NOT EXISTS "{col}" {tipo_pg}'))
+        c.execute(text(f'DELETE FROM "{table}"'))
+        df.to_sql(table, c, if_exists="append", index=False, method="multi", chunksize=5000)
 
-    df.to_sql(table, conn.engine, if_exists="append", index=False, method="multi", chunksize=5000)
 
-
-def _table_exists_live(table: str, conn) -> bool:
+def _table_exists_live(table: str, conn=None) -> bool:
     """
     Pergunta diretamente à base de dados (sem passar pelo Inspector do
     SQLAlchemy, que pode dar respostas desatualizadas nalguns cenários)
@@ -167,13 +201,12 @@ def _table_exists_live(table: str, conn) -> bool:
     código cair no caminho antigo (DROP TABLE), que falha se houver
     views/funções dependentes.
     """
-    resultado = conn.query(
+    resultado = _query(
         "SELECT EXISTS ("
         "  SELECT 1 FROM information_schema.tables "
         "  WHERE table_schema = 'public' AND table_name = :t"
         ") AS existe",
         params={"t": table},
-        ttl=0,
     )
     return bool(resultado.iloc[0]["existe"])
 
@@ -184,7 +217,8 @@ def save_csv(df: pd.DataFrame, key: str, tentativas: int = 3) -> None:
 
     Se a tabela ainda não existir, cria-a de raiz. Se já existir, NUNCA a
     apaga — só acrescenta colunas novas que faltem e substitui o
-    conteúdo (TRUNCATE + INSERT). Importante porque, se alguma view/função
+    conteúdo (DELETE + INSERT, numa só transação). Importante porque, se
+    alguma view/função
     criada no Supabase depender desta tabela, apagá-la e recriá-la
     (`DROP TABLE`, o que "if_exists=replace" faz por trás) falharia com
     um erro de dependências.
@@ -237,8 +271,7 @@ def save_uploaded_file(uploaded_file, key: str) -> None:
 
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner="A carregar dados...")
 def _load_csv_cached(key: str) -> pd.DataFrame:
-    conn = _get_connection()
-    return conn.query(f"SELECT * FROM {_table_name(key)}", ttl=0)
+    return _query(f"SELECT * FROM {_table_name(key)}")
 
 
 def load_csv(key: str) -> pd.DataFrame:
@@ -250,12 +283,10 @@ def _last_modified_cached(key: str):
     if not _file_exists_cached(key):
         return None
     _ensure_meta_table()
-    conn = _get_connection()
     try:
-        resultado = conn.query(
+        resultado = _query(
             f"SELECT updated_at FROM {META_TABLE} WHERE table_name = :t",
             params={"t": _table_name(key)},
-            ttl=0,
         )
         if not resultado.empty:
             return resultado.iloc[0]["updated_at"]
@@ -270,21 +301,18 @@ def last_modified(key: str):
 
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner=False)
 def list_views(prefix: str = "msb_") -> list[str]:
-    conn = _get_connection()
-    df = conn.query(
+    df = _query(
         "SELECT table_name FROM information_schema.views "
         "WHERE table_schema = 'public' AND table_name LIKE :prefix "
         "ORDER BY table_name",
         params={"prefix": f"{prefix}%"},
-        ttl=0,
     )
     return df["table_name"].tolist()
 
 
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner=False)
 def list_functions(prefix: str = "msb_") -> list[str]:
-    conn = _get_connection()
-    df = conn.query(
+    df = _query(
         "SELECT p.proname AS nome "
         "FROM pg_proc p "
         "JOIN pg_namespace n ON p.pronamespace = n.oid "
@@ -292,7 +320,6 @@ def list_functions(prefix: str = "msb_") -> list[str]:
         "AND p.pronargs = 0 AND p.prokind = 'f' "
         "ORDER BY p.proname",
         params={"prefix": f"{prefix}%"},
-        ttl=0,
     )
     return df["nome"].tolist()
 
@@ -309,14 +336,12 @@ def load_analise(nome: str) -> pd.DataFrame:
         sql = f"SELECT * FROM {nome}()"
     else:
         raise ValueError(f"'{nome}' não é uma view nem uma função conhecida da base de dados.")
-    conn = _get_connection()
-    return conn.query(sql, ttl=0)
+    return _query(sql)
 
 
 @st.cache_data(ttl=CACHE_TTL_SEGUNDOS, show_spinner=False)
 def list_functions_com_parametros(prefix: str = "msb_") -> dict[str, list[tuple[str, str]]]:
-    conn = _get_connection()
-    df = conn.query(
+    df = _query(
         "SELECT p.proname AS nome, "
         "pg_get_function_identity_arguments(p.oid) AS args "
         "FROM pg_proc p "
@@ -325,7 +350,6 @@ def list_functions_com_parametros(prefix: str = "msb_") -> dict[str, list[tuple[
         "AND p.pronargs > 0 AND p.prokind = 'f' "
         "ORDER BY p.proname",
         params={"prefix": f"{prefix}%"},
-        ttl=0,
     )
     resultado: dict[str, list[tuple[str, str]]] = {}
     for _, linha in df.iterrows():
@@ -355,8 +379,7 @@ def call_function(nome: str, valores: dict) -> pd.DataFrame:
     }
 
     sql = f"SELECT * FROM {nome}({placeholders})"
-    conn = _get_connection()
-    return conn.query(sql, params=query_params, ttl=0)
+    return _query(sql, params=query_params)
 
 
 def pipeline_status() -> dict:

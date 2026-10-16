@@ -14,6 +14,7 @@ Passos (tal como no script original):
 4. Merge do resultado com part_description, por "partId", how="outer".
 5. Calcular as colunas de verificação:
    - check_collected  = partDescription == description_collected
+                        (comparação com texto normalizado: ver _norm_txt)
    - check_price      = price_task == price_service
    - check_partnumber = partNumber_task == partNumber_service
    - check_qtd        = quantity_task == quantity_service
@@ -21,6 +22,13 @@ Passos (tal como no script original):
 Nota: os `drop(columns=...)` usam `errors="ignore"`, para o pipeline não
 rebentar se algum dos ficheiros reais tiver um conjunto de colunas
 ligeiramente diferente do script original.
+
+Alterações face à versão anterior:
+- check_collected passa a comparar texto normalizado (espaços não
+  separáveis, caracteres invisíveis, espaços repetidos/nas pontas e
+  maiúsculas/minúsculas deixam de dar falsos "Falso").
+- Se faltar a coluna da descrição registada ou a do catálogo, a função
+  levanta um erro claro em vez de pôr tudo a False em silêncio.
 """
 from __future__ import annotations
 
@@ -31,6 +39,20 @@ DROP_TASK = ["id", "msbKey", "taskId", "taskDescription", "componentCode", "work
 DROP_PARTS = ["isFluid", "isService", "isCollected", "isMsb"]
 
 MERGE_KEYS = ["msbId", "partId"]
+
+
+def _norm_txt(s: pd.Series) -> pd.Series:
+    """Normaliza texto para comparar: Unicode NFKC (inclui espaços não
+    separáveis), remove caracteres invisíveis (largura zero, BOM, hífen
+    suave), colapsa espaços, tira espaços das pontas, ignora maiúsculas."""
+    return (
+        s.astype("string")
+        .str.normalize("NFKC")
+        .str.replace("[\u200b\u200c\u200d\u2060\ufeff\u00ad]", "", regex=True)
+        .str.replace(r"\s+", " ", regex=True)
+        .str.strip()
+        .str.casefold()
+    )
 
 
 def _to_str_key(df: pd.DataFrame, col: str) -> pd.DataFrame:
@@ -99,10 +121,21 @@ def build_check_analise(
         if col in check.columns:
             check[col] = pd.to_numeric(check[col], errors="coerce")
 
-    if "partDescription" in check.columns and "description_collected" in check.columns:
-        check["check_collected"] = check["partDescription"] == check["description_collected"]
-    else:
-        check["check_collected"] = False
+    # check_collected: descrição registada em task_parts vs descrição do catálogo
+    desc_recolhida = next(
+        (c for c in ("partDescription", "partDescription_task") if c in check.columns),
+        None,
+    )
+    if desc_recolhida is None or "description_collected" not in check.columns:
+        disponiveis = [c for c in check.columns if "descr" in c.lower()]
+        raise ValueError(
+            "Não consigo calcular check_collected: falta a coluna da descrição "
+            "registada em task_parts ou a do catálogo. "
+            f"Colunas de descrição disponíveis: {disponiveis}"
+        )
+    check["check_collected"] = (
+        _norm_txt(check[desc_recolhida]) == _norm_txt(check["description_collected"])
+    ).fillna(False).astype(bool)
 
     def _safe_eq(col_a: str, col_b: str) -> pd.Series:
         if col_a in check.columns and col_b in check.columns:

@@ -154,7 +154,13 @@ def build_maintenance_profiles_final(
     if "id" not in df_new.columns:
         raise ValueError("A coluna 'id' é obrigatória no ficheiro maintenance_profiles.")
 
+    # O `id` é único por perfil: ids repetidos (ex.: gravações duplicadas)
+    # são reduzidos a uma só linha, para não inflacionar as contagens.
+    df_new = df_new.drop_duplicates(subset="id", keep="last")
+
     if df_existing is not None and not df_existing.empty:
+        if "id" in df_existing.columns:
+            df_existing = df_existing.drop_duplicates(subset="id", keep="last")
         df_final = df_existing.copy()
         if "id" not in df_final.columns:
             df_final["id"] = ""
@@ -166,6 +172,19 @@ def build_maintenance_profiles_final(
         cols_disponiveis = [c for c in COLUNAS_SCRIPT if c in df_new_idx.columns]
         for col in cols_disponiveis:
             df_final[col] = df_new_idx[col]
+
+        # 1b) Atualizar também os dados do perfil (status, maxEndDate, make,
+        #     etc.) dos ids que existem nos dois lados: o export novo manda.
+        #     Sem isto, um perfil que mudou de estado ou de data de fim na
+        #     origem ficava com os valores antigos no FINAL para sempre.
+        #     As colunas que só existem no FINAL ficam como estão.
+        outras = [
+            c for c in df_new_idx.columns
+            if c not in COLUNAS_SCRIPT and c in df_final.columns
+        ]
+        comuns = df_final.index.intersection(df_new_idx.index)
+        if outras and len(comuns):
+            df_final.loc[comuns, outras] = df_new_idx.loc[comuns, outras]
 
         # 2) Adicionar linhas novas
         novas_linhas = df_new_idx[~df_new_idx.index.isin(df_final.index)]
